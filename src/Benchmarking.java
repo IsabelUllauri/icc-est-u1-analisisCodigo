@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Random;
 
 public class Benchmarking {
@@ -13,7 +14,7 @@ public class Benchmarking {
         
         metodosOrdenamiento = new MetodosOrdenamiento();
         int [] arreglo = generarArregloAleatorio(1000000);
-        Runnable tarea = () -> metodosOrdenamiento.burbujaTradicional(arreglo);
+        Runnable tarea = () -> metodosOrdenamiento.insercionPrimero(arreglo);
 
         double tiempoNano = medirTiempoConNanoTime(tarea);
         double tiempoMilis = medirConCurrentTimeMillis(tarea);
@@ -50,4 +51,37 @@ public class Benchmarking {
         long fin=System.currentTimeMillis();
         return (fin- inicio)/1000.0;// se divide para 1000 pq es milisiegindos
     }
+
+    public int[] burbujaTradicional(int[] arregloOriginal) {
+        int[] arreglo = Arrays.copyOf(arregloOriginal, arregloOriginal.length);
+
+        int n = arreglo.length;
+        for (int i = 0; i < n; i++) {
+            for (int j = i + 1; j < n; j++) {
+                if (arreglo[i] > arreglo[j]) {
+                    // Intercambio de elementos
+                    int temp = arreglo[i];
+                    arreglo[i] = arreglo[j];
+                    arreglo[j] = temp;
+                }
+            }
+        }
+        return arreglo;
+    }
+
+    public int[] insercionSegundo(int[] arregloOriginal) {
+        int[] arreglo = Arrays.copyOf(arregloOriginal, arregloOriginal.length);
+        for (int i = 1; i < arreglo.length; i++) {
+            int actual = arreglo[i];
+            int j = i - 1;
+
+            while (j >= 0 && arreglo[j] > actual) {
+                arreglo[j + 1] = arreglo[j];
+                j--;
+            }
+            arreglo[j + 1] = actual;
+        }
+        return arreglo;
+    }
+
 }

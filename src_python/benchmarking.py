@@ -5,6 +5,8 @@ from metodos_ordenamiento import MetodosOrdenamiento
 class Benchmarking:
     def __init__ (self):
         print("Bench inicializado")
+
+    def ejemplo(self):
         self.mOrdenamiento=MetodosOrdenamiento()
         arreglo= self.build_arreglo(1000)
 
@@ -14,6 +16,12 @@ class Benchmarking:
 
         print (f"Tiempo {timepoMilis}segundos")
         print (f"Tiempo{tiempoNano}segundos")
+
+    def medir_tiempo(self, tarea, array):
+        inicio=time.perf_counter()
+        tarea(array)
+        fin=time.perf_counter()
+        return (inicio-fin)
 
 
     def build_arreglo(self, tamanio):
